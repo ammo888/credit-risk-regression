@@ -1,31 +1,29 @@
-# Module 12 Report Template
+# Credit Risk Regression Analysis
 
-## Overview of the Analysis
+## Overview
 
-In this section, describe the analysis you completed for the machine learning models used in this Challenge. This might include:
+credit_risk_resampling.ipynb compares two different logistic regression models, which differ only in the training data provided. The purpose is to show the sensitivity of machine learning to data target label bias, and mitigation. The data at hand is loans, categorized as either healthy or high risk. Each loan has seven features, including interest rate, borrower income, and number of accounts. There are way more healthy loans than high risk loans, with a 30:1 sample ratio between healthy and high risk.
 
-* Explain the purpose of the analysis.
-* Explain what financial information the data was on, and what you needed to predict.
-* Provide basic information about the variables you were trying to predict (e.g., `value_counts`).
-* Describe the stages of the machine learning process you went through as part of this analysis.
-* Briefly touch on any methods you used (e.g., `LogisticRegression`, or any resampling method).
+We first start with a naive logistic regression model, with training data stratified by the target label. We then follow up with the same logistic regression model, but using a RandomOverSampler to make the minority high-risk loans equal in training size to healthy loans.
 
 ## Results
 
 Using bulleted lists, describe the balanced accuracy scores and the precision and recall scores of all machine learning models.
 
-* Machine Learning Model 1:
-  * Description of Model 1 Accuracy, Precision, and Recall scores.
+* Model 1 - Naive logistic regression:
+  * Accuracy:  0.9443
+  * Precision: 0.9925 (0.9964 for healthy loans, 0.8746 for high risk loans)
+  * Recall:    0.9924 (0.9957 for healthy loans, 0.8928 for high risk loans)
 
 
 
-* Machine Learning Model 2:
-  * Description of Model 2 Accuracy, Precision, and Recall scores.
+* Model 2 - Naive logistic regression with random over sampler:
+  * Accuracy:  0.9960
+  * Precision: 0.9958 (0.9999 for healthy loans, 0.8725 for high risk loans)
+  * Recall:    0.9952 (0.9951 for healthy loans, 0.9968 for high risk loans)
 
 ## Summary
 
-Summarize the results of the machine learning models, and include a recommendation on the model to use, if any. For example:
-* Which one seems to perform best? How do you know it performs best?
-* Does performance depend on the problem we are trying to solve? (For example, is it more important to predict the `1`'s, or predict the `0`'s? )
+Model 2 performs best, with precision/recall for healthy loans nearly identical to model 1, but with a significantly better recall for high risk loans (0.9968 vs 0.8928).
 
-If you do not recommend any of the models, please justify your reasoning.
+Identifying high risk loans is of higher importance as it directly increases the default risk of the company's holdings. Therefore, high recall on high risk loans (label `1`) is of most importance.
